@@ -3,21 +3,19 @@ SELECT
     c.nome_fin,
     c.curso,
     c.nivel,
-    c.taxa_matricula,
-    c.parcelas,
-    c.valor_parcela,
 
     -- Dados de quem matriculou
-    c.parceiro_id,
-    p.id_equipe,
     p.tipo,
-    p.nome
+    p.nome,
+    a.telefone,
+    a.celular,
+    a.email
 
-    FROM curso_aluno c
-    INNER JOIN
-        parceiros p ON c.parceiro_id = p.id
+FROM curso_aluno c
+INNER JOIN
+    alunos a ON c.matricula = a.codigo
+INNER JOIN
+    parceiros p ON c.parceiro_id = p.id
 
-WHERE datahora> '2024-12-31 23:59:00'
-
-
--- AND c.parceiro_id = 25745;
+WHERE
+    c.datahora BETWEEN '2025-11-01 00:00:00' AND '2025-11-30 23:59:59'
