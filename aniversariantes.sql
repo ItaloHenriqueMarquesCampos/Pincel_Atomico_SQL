@@ -1,12 +1,12 @@
 SELECT DISTINCT
     a.nome,
     a.nascimento,
-    c.nivel,
-    c.curso,
-    c.conclusao,
-    c.colacao,
+    a.telefone,
+    a.celular,
+    a.email,
     ca.ocorrencia,
-    ca.tipo_ocorrencia
+    ca.tipo_ocorrencia,
+    c.conclusao
 
 FROM curso_aluno c
 INNER JOIN alunos a
@@ -18,4 +18,11 @@ LEFT JOIN unidades u
 LEFT JOIN cancelados ca
     ON c.matricula = ca.matricula
 
-WHERE MONTH(STR_TO_DATE(a.nascimento, '%d/%m/%Y')) = 4;
+WHERE
+    MONTH(STR_TO_DATE(a.nascimento, '%d/%m/%Y')) = 4
+
+AND
+    (c.conclusao IS NOT NULL AND c.conclusao != '')
+
+AND
+    ca.tipo_ocorrencia IS NULL;
